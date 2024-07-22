@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {deleteEmployee, listEmployees, updateEmployee} from "../service/EmployeeService.js";
+import {deleteEmployee, listEmployees} from "../service/EmployeeService.js";
 import {useNavigate} from "react-router-dom";
 
 
@@ -15,7 +15,6 @@ export const EmployeeList = () => {
     function getAllEmployees(){
         listEmployees().then((response)=>{
             setEmployees(response.data.data);
-            console.log(response);
         }).catch(error =>{
             console.error(error);
         })

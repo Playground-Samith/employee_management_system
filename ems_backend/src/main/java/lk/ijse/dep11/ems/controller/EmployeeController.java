@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {
 
@@ -45,5 +45,12 @@ public class EmployeeController {
 
         return new ResponseEntity<>(new StandardResponse(200,"sucess",employeeDTO1),HttpStatus.CREATED);
 
+    }
+
+    @DeleteMapping("{id}")
+
+    public ResponseEntity<StandardResponse> deleteEmployeeById(@PathVariable (value = "id")long employeeId){
+        EmployeeDTO employeeDTO=employeeService.deleteEmployeeById(employeeId);
+        return new ResponseEntity<>(new StandardResponse(200,"success",employeeDTO),HttpStatus.OK);
     }
 }

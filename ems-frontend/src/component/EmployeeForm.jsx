@@ -84,16 +84,26 @@ export const EmployeeForm = () => {
                }).catch(error =>{
                    console.error(error);
                })
+           }else{
+               createEmployee(employee).then((response)=>{
+                   console.log(response.data);
+                   navigator("/");
+               }).catch(error =>{
+                   console.error(error);
+               });
            }
 
-           createEmployee(employee).then((response)=>{
-               console.log(response.data);
-               navigator("/");
-           }).catch(error =>{
-               console.error(error);
-           })
+
        }
 
+    }
+
+    function pageTitle(){
+        if(id){
+            return <h1 className="text-center mt-3">Update Employee</h1>
+        }else{
+            return <h1 className="text-center mt-3">Add Employee</h1>
+        }
     }
     return (
 
@@ -101,7 +111,9 @@ export const EmployeeForm = () => {
             <div className="row">
             <div className="card col-md-6 offset-md-3">
             <div className="card-body ">
-                <h2>Add Employee Form</h2>
+                {
+                    pageTitle()
+                }
                 <form>
                     <div className="form-group mb-2">
                         <label >First Name</label>

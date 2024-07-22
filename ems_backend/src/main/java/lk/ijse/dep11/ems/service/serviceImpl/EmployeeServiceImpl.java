@@ -59,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDTO updateEmployee(long employeeId,EmployeeDTO employeeDTO) {
-        Employee employee=employeeRepository.getReferenceById(employeeId);
+        Employee employee=employeeRepository.findByEmployeeId(employeeId);
 
         if(employee == null){
             throw new NotFoundException("There is no employee found with the given employee id.");
@@ -75,11 +75,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employee.setFirstName(employeeDTO.getFirstName());
         employee.setLastName(employeeDTO.getLastName());
-        employee.setEmail(employeeDTO.getEmail());
+        employee.setEmail(newEmail);
 
         Employee updatedEmployee=employeeRepository.save(employee);
 
         return employeeMapper.entityToDto(updatedEmployee);
 
+    }
+
+    @Override
+    public EmployeeDTO deleteEmployeeById(long employeeId) {
+        Employee employee=employeeRepository.findByEmployeeId(employeeId);
+
+        if(employee == null){
+            throw new NotFoundException("There is no employee found with the given employee id.");
+        }
+
+        employeeRepository.deleteById(employeeId);
+        return employeeMapper.entityToDto(employee);
     }
 }
